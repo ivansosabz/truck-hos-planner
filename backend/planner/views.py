@@ -1,6 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from .services.hos_service import generate_hos_plan
 
 from .services.map_service import geocode_location, get_route
 
@@ -44,6 +45,8 @@ def plan_trip(request):
         total_distance_miles = total_distance_meters / 1609.34
         estimated_drive_hours = total_duration_seconds / 3600
 
+        hos_plan = generate_hos_plan(estimated_drive_hours)
+
         return Response(
             {
                 "message": "Trip planned successfully",
@@ -66,6 +69,7 @@ def plan_trip(request):
                     "to_pickup": route_to_pickup["geometry"],
                     "to_dropoff": route_to_dropoff["geometry"],
                 },
+                "hos_plan": hos_plan
             },
             status=status.HTTP_200_OK,
         )

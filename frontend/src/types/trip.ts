@@ -37,4 +37,24 @@ export interface TripPlanResponse {
         to_pickup: RouteGeometry;
         to_dropoff: RouteGeometry;
     };
+    hos_plan: HosDayPlan[];
+}
+export interface HosSegment {
+    type: string;
+    hours: number;
+    label: string;
+}
+
+export interface HosDaySummary {
+    driving_hours: number;
+    on_duty_not_driving_hours: number;
+    break_hours: number;
+    off_duty_hours: number;
+    break_taken: boolean;
+}
+
+export interface HosDayPlan {
+    day: number;
+    segments: HosSegment[];
+    summary: HosDaySummary;
 }

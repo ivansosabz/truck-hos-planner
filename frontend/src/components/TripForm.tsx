@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { planTrip } from "../api/tripApi";
 import { TripFormData, TripPlanResponse } from "../types/trip";
 import TripMap from "./TripMap";
+import ELDLog from "./ELDLog";
 
 const TripForm = () => {
     const [formData, setFormData] = useState<TripFormData>({
@@ -118,6 +119,28 @@ const TripForm = () => {
                     </p>
 
                     <TripMap tripResult={result} />
+
+                    <h3>HOS Plan</h3>
+                    {result.hos_plan.map((day) => (
+                        <div key={day.day} style={{ marginTop: "20px" }}>
+                            <h4>Day {day.day}</h4>
+
+                            <ul>
+                                {day.segments.map((seg, index) => (
+                                    <li key={index}>
+                                        {seg.label} - {seg.hours} hours
+                                    </li>
+                                ))}
+                            </ul>
+
+                            <p><strong>Driving:</strong> {day.summary.driving_hours} h</p>
+                            <p><strong>On Duty (Not Driving):</strong> {day.summary.on_duty_not_driving_hours} h</p>
+                            <p><strong>Break:</strong> {day.summary.break_hours} h</p>
+                            <p><strong>Off Duty:</strong> {day.summary.off_duty_hours} h</p>
+
+                            <ELDLog dayPlan={day} />
+                        </div>
+                    ))}
                 </div>
             )}
         </div>
