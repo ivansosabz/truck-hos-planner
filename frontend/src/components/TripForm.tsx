@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { planTrip } from "../api/tripApi";
 import { TripFormData, TripPlanResponse } from "../types/trip";
+import TripMap from "./TripMap";
 
 const TripForm = () => {
     const [formData, setFormData] = useState<TripFormData>({
@@ -110,20 +111,13 @@ const TripForm = () => {
 
                     <h3>Trip Summary</h3>
                     <p>
-                        <strong>Total Distance:</strong> {result.mock_result.total_distance_miles} miles
+                        <strong>Total Distance:</strong> {result.route_summary.total_distance_miles} miles
                     </p>
                     <p>
-                        <strong>Estimated Drive Hours:</strong> {result.mock_result.estimated_drive_hours}
+                        <strong>Estimated Drive Hours:</strong> {result.route_summary.estimated_drive_hours}
                     </p>
-                    <p>
-                        <strong>Fuel Stops:</strong> {result.mock_result.fuel_stops}
-                    </p>
-                    <p>
-                        <strong>Rest Breaks:</strong> {result.mock_result.rest_breaks}
-                    </p>
-                    <p>
-                        <strong>Daily Logs Needed:</strong> {result.mock_result.daily_logs_needed}
-                    </p>
+
+                    <TripMap tripResult={result} />
                 </div>
             )}
         </div>
