@@ -38,6 +38,8 @@ export interface TripPlanResponse {
         to_dropoff: RouteGeometry;
     };
     hos_plan: HosDayPlan[];
+    fuel_stops_planned: number;
+    cycle_summary: CycleSummary;
 }
 export interface HosSegment {
     type: string;
@@ -57,4 +59,12 @@ export interface HosDayPlan {
     day: number;
     segments: HosSegment[];
     summary: HosDaySummary;
+}
+export interface CycleSummary {
+    cycle_limit_hours: number;
+    current_cycle_used_hours: number;
+    available_cycle_hours: number;
+    trip_on_duty_hours: number;
+    projected_cycle_used_hours: number;
+    within_cycle_limits: boolean;
 }

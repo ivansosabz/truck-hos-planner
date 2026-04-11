@@ -135,4 +135,5 @@ CSRF_TRUSTED_ORIGINS = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "https://truck-hos-planner.vercel.app/",
 ]
