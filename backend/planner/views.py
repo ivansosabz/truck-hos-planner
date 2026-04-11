@@ -44,8 +44,11 @@ def plan_trip(request):
 
         total_distance_miles = total_distance_meters / 1609.34
         estimated_drive_hours = total_duration_seconds / 3600
-
-        hos_plan = generate_hos_plan(estimated_drive_hours)
+        hos_result = generate_hos_plan(
+            total_drive_hours=estimated_drive_hours,
+            total_distance_miles=total_distance_miles,
+            current_cycle_used_hours=float(current_cycle_used_hours),
+        )
 
         return Response(
             {
@@ -69,7 +72,9 @@ def plan_trip(request):
                     "to_pickup": route_to_pickup["geometry"],
                     "to_dropoff": route_to_dropoff["geometry"],
                 },
-                "hos_plan": hos_plan
+                "hos_plan": hos_result["days"],
+                "fuel_stops_planned": hos_result["fuel_stops_planned"],
+                "cycle_summary": hos_result["cycle_summary"],
             },
             status=status.HTTP_200_OK,
         )
